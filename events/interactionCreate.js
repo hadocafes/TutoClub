@@ -1,6 +1,10 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
+
+        const logs = client.channels.cache.get('989992326258626570');
 
         if (interaction.isCommand()) {
 
@@ -12,12 +16,16 @@ module.exports = {
                 await command.execute(interaction);
             } catch (error) {
                 console.log(error);
-                await interaction.reply({ content: `\`\`\`js\n${error}\`\`\``});
             }
 
         }
 
-        console.log(`${interaction.name} se ha accionado.`);
+        const eventEmbed = new MessageEmbed()
+            .setAuthor(interaction.user.username, interaction.user.avatarURL())
+            .addField(`${interaction}`, `${interaction.user} es el responable`)
+            .setColor('YELLOW')
+
+        logs.send({ embeds: [eventEmbed] });
 
     }
 }
