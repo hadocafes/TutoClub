@@ -29,5 +29,17 @@ for (const file of eventFiles) {
     }
 }
 
+process.on('unhandledRejection', (err) => {
+
+    const errorEmbed = new MessageEmbed() 
+    errorEmbed
+    .setTitle('ERROR')
+    .setColor('RED')
+    .setDescription(`\`\`\`js\n${err}\`\`\``)
+
+    client.channels.cache.get('989992326258626570').send({ embeds: [errorEmbed] });
+    
+});
+
 require('dotenv').config();
 client.login(process.env.token);
