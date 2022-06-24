@@ -1,0 +1,32 @@
+{
+  "name": "tutoclub",
+  "version": "0.0.1",
+  "description": "bot simple, privado y bonito",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadocafes/TutoClub.git"
+  },
+  "keywords": [
+    "private",
+    "opensource"
+  ],
+  "author": "aris#0007, dirquelᴾᶻ#4213, k2helix#8257",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hadocafes/TutoClub/issues"
+  },
+  "homepage": "https://github.com/hadocafes/TutoClub#readme",
+  "devDependencies": {
+    "dotenv": "^16.0.1"
+  },
+  "dependencies": {
+    "@discordjs/builders": "^0.15.0",
+    "@discordjs/rest": "^0.5.0",
+    "ansi-colors": "^4.1.3",
+    "ascii-table": "^0.0.9",
+    "discord-api-types": "^0.34.0",
+    "discord.js": "^13.8.1",
+    "figlet": "^1.5.2"
+  }
+}
