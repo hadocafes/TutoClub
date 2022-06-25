@@ -1,9 +1,26 @@
 const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, Modal, TextInputComponent } = require('discord.js');
+const moment = require('moment');
 const { inicio, numeros } = require('../archivos/emojis.json');
 const colorOptions = require('../archivos/colorOptions.json');
 
 module.exports = async (client, interaction) => {
 	const logs = client.channels.cache.get('989992326258626570');
+
+	if (interaction.isUserContextMenu()) {
+
+		const user = interaction.targetUser
+		const member = interaction.guild.members.cache.get(user.id)
+		const userCreatedAt = moment(user.createdAt).format('x');
+
+		const userInfoEmbed = new MessageEmbed()
+			.setAuthor({ name: `Información sobre ${member.nickname}`, iconURL: user.avatarURL() })
+			.addFields([{name: 'Usuario', value: `**Nombre de Usuario:** ${user.username}\n**ID:** \`${user.id}\`\n**Perfil:** ${user}\n**Creado el:** <t:${userCreatedAt}:F>`}])
+			.setColor('GOLD')
+			.setThumbnail(user.avatarURL())
+			//.setImage(user.bannerURL())
+		interaction.reply({ embeds: [userInfoEmbed] })
+
+	}
 
 	if (interaction.isCommand()) {
 		const command = client.commands.get(interaction.commandName);

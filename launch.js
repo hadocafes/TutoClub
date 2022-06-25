@@ -1,3 +1,4 @@
+const { ContextMenuCommandBuilder } = require('@discordjs/builders')
 const fs = require('node:fs');
 const path = require('node:path');
 const { REST } = require('@discordjs/rest');

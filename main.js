@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const client = new Client({
-	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS]
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES]
 }); //nop
 
 client.commands = new Collection();
