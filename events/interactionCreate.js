@@ -7,7 +7,6 @@ module.exports = async (client, interaction) => {
 
 	if (interaction.isCommand()) {
 		const command = client.commands.get(interaction.commandName);
-
 		if (!command) return;
 
 		try {
@@ -18,7 +17,7 @@ module.exports = async (client, interaction) => {
 
 		const eventEmbed = new MessageEmbed()
 			.setAuthor({
-				name: interaction.user.username,
+				name: `Comando usado por ${interaction.user.username}: ${interaction}`,
 				iconURL: interaction.user.displayAvatarURL({ dynamic: true })
 			})
 			.setColor('YELLOW');
@@ -30,7 +29,7 @@ module.exports = async (client, interaction) => {
 		// Botones de inicio
 		if (interaction.customId === 'rules') {
 			const embedReglas = new MessageEmbed()
-				.setTitle(inicio.seguridad + ' REGLAS BÁSICAS')
+				.setTitle(inicio.seguridad + ' **__Reglas**__')
 				.addFields(
 					{
 						name: `${numeros.uno} No hagas spam ni flood.`,
@@ -50,17 +49,16 @@ module.exports = async (client, interaction) => {
 					},
 					{
 						name: `${numeros.sorpresa} Usa el sentido común.`,
-						value: 'Usa los canales adecuadamente, piensa varias veces antes de decir algo, sabes bien como usar esa cabeza.'
+						value: 'Usa los canales adecuadamente, piensa bien antes de decir algo, sabes cómo usar esa cabeza.'
 					}
 				)
 				.setColor('DARK_ORANGE')
 				.setFooter({
-					text: 'Los moderadores pueden sancionar también por motivos no definidos en estas normas básicas. Asegúrate de leer también los Términos y Directivas que se necesita cumplir en Discord.'
+					text: 'Los moderadores pueden sancionar también por motivos no definidos en estas normas básicas. Asegúrate de leer también los Términos y Directivas que se necesitan cumplir en Discord.'
 				});
 
 			const botonesTerminos = new MessageActionRow().addComponents(
 				new MessageButton().setLabel('Términos de servicio').setStyle('LINK').setURL('https://discord.com/terms'),
-
 				new MessageButton().setLabel('Directrices de comunidad').setStyle('LINK').setURL('https://discord.com/guidelines')
 			);
 
@@ -82,18 +80,8 @@ module.exports = async (client, interaction) => {
 				.setColor('BLURPLE');
 
 			const botonesAjustes = new MessageActionRow().addComponents(
-				new MessageButton()
-					.setCustomId('colordeusuario')
-					.setLabel('Color')
-					//.setEmoji('')
-					.setStyle('PRIMARY'),
-
-				new MessageButton()
-					.setCustomId('apodo')
-					.setLabel('Apodo')
-					//.setEmoji('')
-					.setStyle('SECONDARY'),
-
+				new MessageButton().setCustomId('colordeusuario').setLabel('Color').setStyle('PRIMARY'),
+				new MessageButton().setCustomId('apodo').setLabel('Apodo').setStyle('SECONDARY'),
 				new MessageButton().setLabel('Próximamente').setStyle('SECONDARY').setCustomId('null').setDisabled(true)
 			);
 
@@ -107,22 +95,12 @@ module.exports = async (client, interaction) => {
 		if (interaction.customId === 'apodo') {
 			const modal = new Modal().setCustomId('cambiar_apodo').setTitle('Cambiar de Apodo');
 
-			const elegirApodo = new TextInputComponent()
-				.setCustomId('eleccion_nombre')
-				.setLabel('Opción Premium') //paso esto por el eslint? y
-				.setPlaceholder('¿Qué nombre quieres?')
-				.setStyle('SHORT');
+			const elegirApodo = new TextInputComponent().setCustomId('eleccion_nombre').setLabel('Opción Premium').setPlaceholder('¿Qué nombre quieres?').setStyle('SHORT');
 
 			const elegirElApodo = new MessageActionRow().addComponents(elegirApodo);
 			modal.addComponents(elegirElApodo);
 
 			await interaction.showModal(modal);
-		}
-
-		if (interaction.customId === 'cambiar_apodo') {
-			const apodoElegido = interaction.fields.getTextInputValue('eleccion_nombre');
-			interaction.member.setNickname(apodoElegido);
-			interaction.reply(`Tu apodo ha sido cambiado a ${apodoElegido}`);
 		}
 
 		if (interaction.customId === 'colordeusuario') {
@@ -145,6 +123,18 @@ module.exports = async (client, interaction) => {
 				ephemeral: true
 			});
 		}
+	}
+
+	if (interaction.customId === 'cambiar_apodo') {
+		const apodoElegido = interaction.fields.getTextInputValue('eleccion_nombre');
+		interaction.member
+			.setNickname(apodoElegido)
+			.then(() => {
+				interaction.reply({ content: `¡Te hemos cambiado el apodo a **${apodoElegido}**!`, ephemeral: true });
+			})
+			.catch((err) => {
+				return interaction.reply({ content: `Ocurrió un error ejecutando ese comando: \`${err.message}\``, ephemeral: true });
+			});
 	}
 
 	if (interaction.customId === 'seleccionadorcolor') {

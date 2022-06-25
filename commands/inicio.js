@@ -9,7 +9,7 @@ module.exports = {
 		inicioEmbed
 			.setTitle('¡Bienvenido a TutoClub!')
 			.setDescription(
-				'TutoClub es un proyecto que comenzó como TutoDiscord, un simple canal para compartir conocimiento sobre Discord. Ahora somos un grupo mucho más grande con un montón de cosas útiles para todo el mundo, pero sin olvidarnos de nuestro comienzo.'
+				'TutoClub es un proyecto que comenzó como TutoDiscord, un simple canal para compartir conocimiento sobre Discord.\nAhora somos un grupo mucho más grande con un montón de cosas útiles para todo el mundo, pero sin olvidarnos de nuestro comienzo.'
 			)
 			.setColor('#FEE75C')
 			.setThumbnail('https://cdn.discordapp.com/icons/533954846479351818/a_187fcad3e261b3da433bc1841341fbbb.gif?size=1024')
@@ -17,9 +17,7 @@ module.exports = {
 
 		const botonesInicio = new MessageActionRow().addComponents(
 			new MessageButton().setCustomId('rules').setLabel('Reglas').setEmoji(`${inicio.seguridad}`).setStyle('PRIMARY'),
-
 			new MessageButton().setCustomId('nuevoaqui').setLabel('¿Nuevo por aquí?').setEmoji(`${inicio.nuevo}`).setStyle('SUCCESS'),
-
 			new MessageButton().setCustomId('opcionesinicio').setLabel('Opciones').setEmoji(`${inicio.ajustes}`).setStyle('SECONDARY')
 		);
 

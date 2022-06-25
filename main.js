@@ -29,7 +29,7 @@ fs.readdir(eventsPath, (err, files) => {
 
 process.on('unhandledRejection', (err) => {
 	client.channels.cache.get('989992326258626570').send({
-		embeds: [new MessageEmbed().setTitle('ERROR').setColor('RED').setDescription(`\`\`\`js\n${err}\`\`\``)]
+		embeds: [new MessageEmbed().setTitle('ERROR').setColor('RED').setDescription(`\`\`\`js\n${err.stack}\`\`\``)]
 	});
 	console.log(err);
 });
