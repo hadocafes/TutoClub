@@ -6,5 +6,5 @@ module.exports = {
 		.setDescription('Mira la latencia del bot.'),
 	execute(interaction) {
 		interaction.reply(`🏓 Latencia: \`${client.ws.ping} ms.\``);
-	},
+	}
 };
