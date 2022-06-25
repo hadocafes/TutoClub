@@ -1,20 +1,17 @@
 const { version } = require('../package.json');
 
-module.exports = {
-    name: 'ready',
-    once: true,
-    execute(client) {
+module.exports = (client) => {
+	client.user.setPresence({
+		activities: [
+			{
+				name: 'TutoDiscord',
+				type: 'WATCHING'
+			}
+		],
 
-        client.user.setPresence({
-            activities: [{
-                name: 'TutoDiscord',
-                type: 'WATCHING'
-            }],
+		status: 'idle'
+	});
 
-            status: 'idle'
-        });
-
-        console.clear()
-        console.log(`TutoClub [Versión ${version}] \n\n✅ ¡${client.user.username} está preparado para la acción!`)
-    }
-}
+	console.clear();
+	console.log(`TutoClub [Versión ${version}] \n\n✅ ¡${client.user.username} está preparado para la acción!`);
+};
