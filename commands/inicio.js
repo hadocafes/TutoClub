@@ -21,19 +21,19 @@ module.exports = {
 				new MessageButton()
 					.setCustomId('rules')
 					.setLabel('Reglas')
-					.setEmoji(inicio.seguridad)
+					.setEmoji(`${inicio.seguridad}`)
 					.setStyle('PRIMARY'),
 
 				new MessageButton()
 					.setCustomId('nuevoaqui')
 					.setLabel('¿Nuevo por aquí?')
-					.setEmoji(inicio.nuevo)         
+					.setEmoji(`${inicio.nuevo}`)         
 					.setStyle('SUCCESS'),
 
 				new MessageButton()
 					.setCustomId('opcionesinicio')
 					.setLabel('Opciones')
-					.setEmoji(inicio.ajustes)
+					.setEmoji(`${inicio.ajustes}`)
 					.setStyle('SECONDARY')
 			)
 
