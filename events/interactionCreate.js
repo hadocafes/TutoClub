@@ -18,14 +18,26 @@ module.exports = {
                 console.log(error);
             }
 
+            const eventEmbed = new MessageEmbed()
+                .setAuthor(interaction.user.username, interaction.user.avatarURL())
+                .addField(`${interaction}`, `${interaction.user} es el responable`)
+                .setColor('YELLOW')
+
+            logs.send({ embeds: [eventEmbed] });
+
         }
 
-        const eventEmbed = new MessageEmbed()
-            .setAuthor(interaction.user.username, interaction.user.avatarURL())
-            .addField(`${interaction}`, `${interaction.user} es el responable`)
-            .setColor('YELLOW')
+        if (interaction.isButton()) {
 
-        logs.send({ embeds: [eventEmbed] });
+            // Botones de inicio
+            if (interaction.customId === 'rules') {
+
+                const embedReglas = new MessageEmbed()
+                    .setTitle
+
+            }
+
+        }
 
     }
 }
