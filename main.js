@@ -1,8 +1,8 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 
-client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] }); //nop
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -14,7 +14,7 @@ for (const file of commandFiles) {
 
     client.commands.set(command.data.name, command);
 }
-
+ // l 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
@@ -31,13 +31,14 @@ for (const file of eventFiles) {
 
 process.on('unhandledRejection', (err) => {
 
-    const errorEmbed = new MessageEmbed() 
+    /*const errorEmbed = new MessageEmbed() 
     errorEmbed
     .setTitle('ERROR')
     .setColor('RED')
     .setDescription(`\`\`\`js\n${err}\`\`\``)
 
-    client.channels.cache.get('989992326258626570').send({ embeds: [errorEmbed] });
+    client.channels.cache.get('989992326258626570').send({ embeds: [errorEmbed] });*/
+    console.log(err);
     
 });
 

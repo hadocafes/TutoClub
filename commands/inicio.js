@@ -5,13 +5,13 @@ const { inicio } = require('../archivos/emojis.json');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('inicio')
-		.setDescription('no uses esto'),
+		.setDescription('Comando de inicio'),
 	async execute(interaction) {
 
 		const inicioEmbed = new MessageEmbed()
 			inicioEmbed
 			.setTitle('¡Bienvenido a TutoClub!')
-			.setDescription('TutoClub es un proyecto que comenzó como TutoDiscord, un simple canal para compartir conocimiento sobre Discord, ahora somos un grupo mucho más grande con un montón de cosas útiles para todo el mundo, pero sin olvidarnos de nuestro comienzo.')
+			.setDescription('TutoClub es un proyecto que comenzó como TutoDiscord, un simple canal para compartir conocimiento sobre Discord. Ahora somos un grupo mucho más grande con un montón de cosas útiles para todo el mundo, pero sin olvidarnos de nuestro comienzo.')
 			.setColor('#FEE75C')
 			.setThumbnail('https://cdn.discordapp.com/icons/533954846479351818/a_187fcad3e261b3da433bc1841341fbbb.gif?size=1024')
 			.setImage('https://cdn.discordapp.com/attachments/940695072234688522/987721428965154886/FAQ_v5.png')
@@ -40,6 +40,6 @@ module.exports = {
 			client.channels.cache.get('990001358486781952').send({ embeds: [inicioEmbed], components: [botonesInicio] });
         // trabajando en eso, no me mires mal =.=
 
-	    await interaction.reply('<#990001358486781952> porfa pls');
-	},
+	    await interaction.reply('Enviado a <#990001358486781952>');
+	}
 };
