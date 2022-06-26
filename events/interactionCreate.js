@@ -10,14 +10,16 @@ module.exports = async (client, interaction) => {
 
 		const user = interaction.targetUser
 		const member = interaction.guild.members.cache.get(user.id)
-		const userCreatedAt = moment(user.createdAt).format('x');
+		const userCreatedAt = user.createdAt.getTime().toString().slice(0, -3)
 
 		const userInfoEmbed = new MessageEmbed()
 			.setAuthor({ name: `Información sobre ${member.nickname}`, iconURL: user.avatarURL() })
-			.addFields([{name: 'Usuario', value: `**Nombre de Usuario:** ${user.username}\n**ID:** \`${user.id}\`\n**Perfil:** ${user}\n**Creado el:** <t:${userCreatedAt}:F>`}])
+			//.setDescription(user.flags.FLAGS)
+			.addFields([{name: 'Usuario', value: `**Nombre de Usuario:** ${user.username}\n**ID:** \`${user.id}\`\n**Perfil:** ${user}\n**Creado el:** <t:${userCreatedAt}:F> <t:${userCreatedAt}:R>`}])
 			.setColor('GOLD')
 			.setThumbnail(user.avatarURL())
 			//.setImage(user.bannerURL())
+			console.log(user.flags)
 		interaction.reply({ embeds: [userInfoEmbed] })
 
 	}

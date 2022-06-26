@@ -11,7 +11,6 @@ module.exports = {
 		.addStringOption((code) => code.setName('code').setDescription('Código a evaluar').setRequired(true))
 		.addStringOption((option) => option.setName('depth').setDescription('Profundidad que retornar').setRequired(false)),
 	execute(client, interaction) {
-		if (!['680189998750105711', '461279654158925825', '833257316135600158', '459649180969730050'].includes(interaction.user.id)) return;
 		const depthTo = interaction.options.getString('depth') || '0';
 		try {
 			const code = interaction.options.getString('code');
