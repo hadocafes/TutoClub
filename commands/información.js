@@ -37,7 +37,7 @@ module.exports = {
 			)
 			.setThumbnail(user.avatarURL())
 			.setFooter({ text: `Se ha unido el` })
-			.setTimestamp(member.joinedTimestamp);
+			.setTimestamp(member.joinedAt); //joinedTimestamp para DD/MM/YYYY
 		//.setImage(user.fetchBannerURL())
 		interaction.reply({ embeds: [userInfoEmbed], ephemeral: true }); //quita el efímero si quieres
 	}
