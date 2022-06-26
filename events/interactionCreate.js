@@ -1,7 +1,10 @@
 const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, Modal, TextInputComponent } = require('discord.js');
-const moment = require('moment');
+const ShelterClient = require('botsshelter').default;
+require('dotenv').config();
 const { inicio, numeros } = require('../archivos/emojis.json');
 const colorOptions = require('../archivos/colorOptions.json');
+
+const clientShelter = new ShelterClient(process.env.tokenShelter)
 
 module.exports = async (client, interaction) => {
 	const logs = client.channels.cache.get('989992326258626570');
@@ -11,15 +14,58 @@ module.exports = async (client, interaction) => {
 		const user = interaction.targetUser
 		const member = interaction.guild.members.cache.get(user.id)
 		const userCreatedAt = user.createdAt.getTime().toString().slice(0, -3)
-
+		const userflags = user.flags.toArray();
+		const nickname = member.nickname || user.username
 		const userInfoEmbed = new MessageEmbed()
-			.setAuthor({ name: `Información sobre ${member.nickname}`, iconURL: user.avatarURL() })
-			//.setDescription(user.flags.FLAGS)
-			.addFields([{name: 'Usuario', value: `**Nombre de Usuario:** ${user.username}\n**ID:** \`${user.id}\`\n**Perfil:** ${user}\n**Creado el:** <t:${userCreatedAt}:F> <t:${userCreatedAt}:R>`}])
+
+		const flags = {
+			DISCORD_EMPLOYEE: '<:DiscordStaff:985122690044133428>',
+			DISCORD_PARTNER: '<:PartneredServerOwner:985122699863011368>',
+			BUGHUNTER_LEVEL_1: '<:cazaerrores:797963772270608405>',
+			BUGHUNTER_LEVEL_2: '<:cazaerrores_dorado:797964484408246273>',
+			HYPESQUAD_EVENTS: '<:hype_squad_event:910263643680165908>',
+			HOUSE_BRAVERY: '<:house_of_bravery:910263643625644122>',
+			HOUSE_BRILLIANCE: '<:house_of_brillance:910263643793408010>',
+			HOUSE_BALANCE: '<:house_of_balance:910263643625631784>',
+			EARLY_SUPPORTER: '<:partidario_inicial:797964507355021392>',
+			TEAM_USER: '<:PMD:848275257978388497>',
+			SYSTEM: 'System',
+			VERIFIED_BOT: '<:discord_verified_BOT1_from_VEGA:985129233040932875><:discord_verified_BOT2_from_VEGA:985129282789597194>',
+			VERIFIED_DEVELOPER: '<:EarlyVerifiedBotDeveloper:985122692275519538>'
+		};
+
+		userInfoEmbed.setAuthor({ name: `Información sobre ${nickname}`, iconURL: user.avatarURL() })
+
+		if (user.bot) {
+
+			userInfoEmbed
+				.setDescription('🤖' + ` ${userflags.map(flag => flags[flag]).join(' ')}`)
+				.setColor('BLURPLE')
+
+				const data = await clientShelter.get(user.id)
+				
+				if (data) {
+
+				userInfoEmbed
+					.addField('Información del Bot (TutoShelter)', `**Dueño:** <@${data.owner}> \`${data.owner}\`\n**Prefix:** <@${data.prefix}>\n**Librería:** ${data.library}\n**Votos:** \`${data.votes}\``)
+
+				}
+
+		} else {
+
+			userInfoEmbed
+			.setDescription(`${userflags.map(flag => flags[flag]).join(' ')}`)
 			.setColor('GOLD')
+
+		}
+
+		userInfoEmbed
+			.addFields([{name: 'Usuario', value: `**Nombre de Usuario:** ${user.username}\n**ID:** \`${user.id}\`\n**Perfil:** ${user}\n**Creado el:** <t:${userCreatedAt}:F> <t:${userCreatedAt}:R>`}])
 			.setThumbnail(user.avatarURL())
-			//.setImage(user.bannerURL())
-			console.log(user.flags)
+			.setFooter({ text: `Se ha unido el`})
+			.setTimestamp(member.joinedAt)
+			//.setImage(user.fetchBannerURL())
+			console.log(userflags.map(flag => flags[flag]).join(', '))
 		interaction.reply({ embeds: [userInfoEmbed] })
 
 	}
