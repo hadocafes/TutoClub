@@ -1,12 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const { inicio } = require('../archivos/emojis.json');
+const { inicio } = require('../utils/emojis.json');
 
 module.exports = {
 	data: new SlashCommandBuilder().setName('inicio').setDescription('Comando de inicio'),
 	async execute(client, interaction) {
-		const inicioEmbed = new MessageEmbed();
-		inicioEmbed
+		const inicioEmbed = new MessageEmbed()
 			.setTitle('¡Bienvenido a TutoClub!')
 			.setDescription(
 				'TutoClub es un proyecto que comenzó como TutoDiscord, un simple canal para compartir conocimiento sobre Discord.\nAhora somos un grupo mucho más grande con un montón de cosas útiles para todo el mundo, pero sin olvidarnos de nuestro comienzo.'
@@ -22,8 +21,6 @@ module.exports = {
 		);
 
 		client.channels.cache.get('990001358486781952').send({ embeds: [inicioEmbed], components: [botonesInicio] });
-		// trabajando en eso, no me mires mal =.=
-
 		await interaction.reply('Enviado a <#990001358486781952>');
 	}
 };

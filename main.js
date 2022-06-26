@@ -1,12 +1,16 @@
 const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
+const ShelterClient = require('botsshelter').default;
 const fs = require('node:fs');
 const path = require('node:path');
 
+require('dotenv').config();
+
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES]
-}); //nop
+});
 
 client.commands = new Collection();
+client.shelterClient = new ShelterClient(process.env.tokenShelter);
 
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
@@ -34,5 +38,4 @@ process.on('unhandledRejection', (err) => {
 	console.log(err);
 });
 
-require('dotenv').config();
 client.login(process.env.token);
