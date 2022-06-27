@@ -1,6 +1,6 @@
 {
   "name": "tutoclub",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "bot simple, privado y bonito",
   "main": "main.js",
   "repository": {
@@ -26,7 +26,7 @@
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
-    "botsshelter": "^1.0.9",
+    "botsshelter": "^1.0.10",
     "discord-api-types": "^0.34.0",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1"
