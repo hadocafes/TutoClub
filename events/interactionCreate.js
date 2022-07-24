@@ -1,12 +1,10 @@
-const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, Modal, TextInputComponent } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 require('dotenv').config();
-const { inicio, numeros } = require('../utils/emojis.json');
-const colorOptions = require('../utils/colorOptions.json');
 
 module.exports = async (client, interaction) => {
-	const logs = client.channels.cache.get('989992326258626570');
 
-	if (interaction.isCommand() || interaction.isContextMenu()) {
+	if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
+
 		const command = client.commands.get(interaction.commandName);
 		if (!command) return;
 
@@ -14,145 +12,19 @@ module.exports = async (client, interaction) => {
 			await command.execute(client, interaction);
 		} catch (error) {
 			console.log(error);
+			interaction.reply({ content: '⁉️ No pude hacer eso, contacta con <@680189998750105711> para solucionar este problema cuanto antes.', ephemeral: true });
 		}
 
-		const eventEmbed = new MessageEmbed()
-			.setAuthor({
-				name: `Comando usado por ${interaction.user.username}`,
-				iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-			})
-			.setDescription(interaction.isContextMenu() ? `**${interaction.commandName}** sobre <@${interaction.targetId}>` : interaction)
-			.setColor('YELLOW');
-
-		logs.send({ embeds: [eventEmbed] });
-	}
-
-	if (interaction.isButton()) {
-		// Botones de inicio
-		if (interaction.customId === 'rules') {
-			const embedReglas = new MessageEmbed()
-				.setTitle(inicio.seguridad + ' **__Reglas**__')
-				.addFields(
-					{
-						name: `${numeros.uno} No hagas spam ni flood.`,
-						value: 'Es molesto ver poco texto en varias líneas o invitaciones.'
-					},
-					{
-						name: `${numeros.dos} El respeto es lo que más valoramos.`,
-						value: 'Y si no lo hay... bueno, ya sabes...'
-					},
-					{
-						name: `${numeros.tres} Protégete mucho`,
-						value: 'No compartas información personal, contraseñas o hagas click sobre supuestas promos.'
-					},
-					{
-						name: `${numeros.cuatro} Cuidado con el contenido que compartes.`,
-						value: 'No aceptamos ningún contenido pirata o para mayores de edad.'
-					},
-					{
-						name: `${numeros.sorpresa} Usa el sentido común.`,
-						value: 'Usa los canales adecuadamente, piensa bien antes de decir algo, sabes cómo usar esa cabeza.'
-					}
-				)
-				.setColor('DARK_ORANGE')
-				.setFooter({
-					text: 'Los moderadores pueden sancionar también por motivos no definidos en estas normas básicas. Asegúrate de leer también los Términos y Directivas que se necesitan cumplir en Discord.'
-				});
-
-			const botonesTerminos = new MessageActionRow().addComponents(
-				new MessageButton().setLabel('Términos de servicio').setStyle('LINK').setURL('https://discord.com/terms'),
-				new MessageButton().setLabel('Directrices de comunidad').setStyle('LINK').setURL('https://discord.com/guidelines')
-			);
-
-			interaction.reply({
-				embeds: [embedReglas],
-				components: [botonesTerminos],
-				ephemeral: true
-			});
-		}
-
-		if (interaction.customId === 'opcionesinicio') {
-			const opcionesEmbed = new MessageEmbed()
-				.setTitle('Ajustes de miembro')
-				.setDescription('Ponte guapo con las opciones que tenemos disponibles.')
-				.setFooter({
-					text: 'Premium Settings',
-					iconURL: 'https://cdn.discordapp.com/attachments/989989670446305330/990285996929208460/emoji.png'
+		// LOGS
+		client.channels.cache.get('989992326258626570')
+			.send({ embeds: [ new EmbedBuilder() 
+				.setAuthor({
+					name: interaction.user.username,
+					iconURL: interaction.user.displayAvatarURL({ dynamic: true })
 				})
-				.setColor('BLURPLE');
-
-			const botonesAjustes = new MessageActionRow().addComponents(
-				new MessageButton().setCustomId('colordeusuario').setLabel('Color').setStyle('PRIMARY'),
-				new MessageButton().setCustomId('apodo').setLabel('Apodo').setStyle('SECONDARY'),
-				new MessageButton().setLabel('Próximamente').setStyle('SECONDARY').setCustomId('null').setDisabled(true)
-			);
-
-			interaction.reply({
-				embeds: [opcionesEmbed],
-				components: [botonesAjustes],
-				ephemeral: true
-			});
-		}
-
-		if (interaction.customId === 'apodo') {
-			const modal = new Modal().setCustomId('cambiar_apodo').setTitle('Cambiar de Apodo');
-
-			const elegirApodo = new TextInputComponent().setCustomId('eleccion_nombre').setLabel('Opción Premium').setPlaceholder('¿Qué nombre quieres?').setStyle('SHORT');
-
-			const elegirElApodo = new MessageActionRow().addComponents(elegirApodo);
-			modal.addComponents(elegirElApodo);
-
-			await interaction.showModal(modal);
-		}
-
-		if (interaction.customId === 'colordeusuario') {
-			const opcionesEmbed = new MessageEmbed()
-				.setTitle('Ajustes de miembro')
-				.setDescription('Ponte guapo con las opciones que tenemos disponibles.')
-				.setFooter({
-					text: 'Premium Settings',
-					iconURL: 'https://cdn.discordapp.com/attachments/989989670446305330/990285996929208460/emoji.png'
-				})
-				.setColor('BLURPLE');
-
-			const seleccionarColor = new MessageActionRow().addComponents(
-				new MessageSelectMenu().setCustomId('seleccionadorcolor').setPlaceholder('Ningún color seleccionado').addOptions(colorOptions)
-			);
-
-			interaction.reply({
-				embeds: [opcionesEmbed],
-				components: [seleccionarColor],
-				ephemeral: true
-			});
-		}
+				.setDescription(interaction.isContextMenuCommand() ? `Ha usado \`${interaction.commandName}\` en <@${interaction.targetId}>` : `Ha usado </${interaction.commandName}:${interaction.commandId}>`)
+				.setColor('Blurple')
+		]});
 	}
 
-	if (interaction.customId === 'cambiar_apodo') {
-		const apodoElegido = interaction.fields.getTextInputValue('eleccion_nombre');
-		interaction.member
-			.setNickname(apodoElegido)
-			.then(() => {
-				interaction.reply({ content: `¡Te hemos cambiado el apodo a **${apodoElegido}**!`, ephemeral: true });
-			})
-			.catch((err) => {
-				return interaction.reply({ content: `Ocurrió un error ejecutando ese comando: \`${err.message}\``, ephemeral: true });
-			});
-	}
-
-	if (interaction.customId === 'seleccionadorcolor') {
-		const colors = colorOptions.map((o) => o.value);
-		colors.forEach((color) => {
-			if (interaction.member.roles.cache.has(color)) interaction.member.roles.remove(color);
-		});
-		const role = interaction.guild.roles.cache.get(interaction.values[0]);
-		interaction.member.roles
-			.add(role)
-			.then(() => {
-				interaction.reply({
-					content: `¡Listo, te puse el color <@&${interaction.values[0]}>!`,
-					ephemeral: true
-				});
-			})
-			.catch((err) => console.error(err));
-	}
 };

@@ -1,13 +1,11 @@
-const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, EmbedBuilder } = require('discord.js');
 const ShelterClient = require('botsshelter').default;
 const fs = require('node:fs');
 const path = require('node:path');
 
 require('dotenv').config();
 
-const client = new Client({
-	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES]
-});
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 client.commands = new Collection();
 client.shelterClient = new ShelterClient(process.env.tokenShelter);
@@ -33,7 +31,11 @@ fs.readdir(eventsPath, (err, files) => {
 
 process.on('unhandledRejection', (err) => {
 	client.channels.cache.get('989992326258626570').send({
-		embeds: [new MessageEmbed().setTitle('ERROR').setColor('RED').setDescription(`\`\`\`js\n${err.stack}\`\`\``)]
+		embeds: [new EmbedBuilder()
+			.setTitle('ERROR')
+			.setColor('RED')
+			.setDescription(`\`\`\`js\n${err.stack}\`\`\``)
+		]
 	});
 	console.log(err);
 });
