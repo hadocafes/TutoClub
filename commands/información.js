@@ -10,6 +10,7 @@ module.exports = {
 		
 		const user = interaction.targetUser;
 		const member = interaction.targetMember;
+		const data = await client.shelterClient.get(user.id);
 
 		let badges = `${user.flags
 			.toArray()
@@ -26,23 +27,24 @@ module.exports = {
 
 		if (user.bot) {
 
-			const data = await client.shelterClient.get(user.id);
+			if (!badges) badges = '<:bot:992808295276482581> ';
 
-			badges = '<:bot:992808295276482581> ' + badges;
 			color = 'Blurple';
 
-			if (data) {
-
-				badges = '<:bshelter:992809801337819146> ' + badges - '<:bot:992808295276482581> ';
-				color = 0x00a79d;
-				embed.addFields(
-					{ name: 'Sobre el bot', value: data.description },
-					{ name: 'Más detalles de TutoShelter', value: `**Dueño:** <@${data.owner}> \`${data.owner}\`\n**Prefix:** ${data.prefix}\n**Librería:** ${data.library}\n**Votos:** \`${data.votes}\`` }
-				);
-
-			}
 		}
 
+		if (data) {
+
+			badges = '<:bshelter:992809801337819146> ' + badges;
+			color = 0x00a79d;
+			embed.addFields(
+				{ name: 'Sobre el bot', value: data.description },
+				{ name: 'Más detalles de TutoShelter', value: `**Dueño:** <@${data.owner}> \`${data.owner}\`\n**Prefix:** ${data.prefix}\n**Librería:** ${data.library}\n**Votos:** \`${data.votes}\`` }
+			);
+
+		}
+
+		if (!badges) badges = '** **'
 		embed.setDescription(badges).setColor(color);
 		interaction.reply({ embeds: [embed], ephemeral: false });
 

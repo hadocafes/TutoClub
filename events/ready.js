@@ -1,16 +1,22 @@
 const { ActivityType } = require("discord.js");
 const { version } = require('../package.json');
 
-module.exports = (client) => {
+module.exports = {
+	name: 'ready',
 
-	client.user.setPresence({
-		activities: [{
-			name: 'TutoDiscord',
-			type: ActivityType.Watching
-		}],
-		status: 'idle'
-	});
+	async execute (interaction, client) {
 
-	console.clear();
-	console.log(`TutoClub [Versión ${version}] \n\n✅ ¡BOT INICIADO!`);
-};
+		client.user.setPresence({
+			activities: [{
+				name: 'TutoDiscord',
+				type: ActivityType.Watching
+			}],
+			status: 'idle'
+		});
+	
+		console.clear();
+		console.log(`TutoClub [Versión ${version}] \n\n✅ ¡BOT INICIADO!`);
+
+
+	}
+}
