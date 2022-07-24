@@ -1,6 +1,6 @@
 {
   "name": "tutoclub",
-  "version": "0.0.1",
+  "version": "14.2.3",
   "description": "bot simple, privado y bonito",
   "main": "main.js",
   "repository": {
@@ -18,12 +18,15 @@
   },
   "homepage": "https://github.com/hadocafes/TutoClub#readme",
   "devDependencies": {
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.3.2"
   },
   "dependencies": {
-    "@discordjs/builders": "^0.15.0",
-    "@discordjs/rest": "^0.5.0",
-    "discord-api-types": "^0.34.0",
-    "discord.js": "^13.8.1"
+    "@discordjs/rest": "^1.0.0",
+    "botsshelter": "^1.0.10",
+    "discord.js": "^14.0.3"
   }
 }
