@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 let chatbot = require("espchatbotapi");
 require('dotenv').config();
-chatbot = new chatbot(process.env.chatbotToken, process.env.clientId);
+chatbot = new chatbot(process.env.chatbotToken, process.env.clientID);
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -41,8 +41,14 @@ module.exports = {
                 .setComponents( new ButtonBuilder() 
                 
                     .setCustomId('eliminar_aprendizaje')
-                    .setLabel('ELIMINAR')
+                    .setEmoji('🗑️')
                     .setStyle(ButtonStyle.Danger),
+
+                  new ButtonBuilder()
+                    .setCustomId('modificar_aprendizaje')
+                    .setEmoji('📝')
+                    .setStyle(ButtonStyle.Primary)
+                    .setDisabled(true)
 
                 )
             
