@@ -1,6 +1,3 @@
-const keepAlive = require('./server.js')
-const express = require('express')().get("/", (req, res) => res.send("Bot Activo")).listen(3000)
-
 const { Client, GatewayIntentBits, Collection, EmbedBuilder } = require('discord.js');
 const ShelterClient = require('botsshelter').default;
 const fs = require('node:fs');
@@ -51,13 +48,13 @@ for (const file of buttonFiles) {
 }
 
 process.on('unhandledRejection', (err) => {
-  /*client.channels.cache.get('989992326258626570').send({
+  client.channels.cache.get('989992326258626570').send({
     embeds: [new EmbedBuilder()
       .setTitle('ERROR')
       .setColor('RED')
       .setDescription(`\`\`\`js\n${err.stack}\`\`\``)
     ]
-  });*/
+  });
   console.log(err);
 });
 
