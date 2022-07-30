@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 let chatbot = require("espchatbotapi");
 require('dotenv').config();
-chatbot = new chatbot(process.env.chatbotToken, process.env.clientID);
+chatbot = new chatbot(process.env.chatbotToken, process.env.clientId);
 
 module.exports = {
 	data: new SlashCommandBuilder()

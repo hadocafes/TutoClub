@@ -1,6 +1,6 @@
 let chatbot = require("espchatbotapi")
 require('dotenv').config();
-chatbot = new chatbot(process.env.chatbotToken, process.env.clientID)
+chatbot = new chatbot(process.env.chatbotToken, process.env.clientId)
 
 module.exports = {
   name: 'messageCreate',
