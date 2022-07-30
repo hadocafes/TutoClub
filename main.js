@@ -61,4 +61,10 @@ process.on('unhandledRejection', (err) => {
   console.log(err);
 });
 
+client.on('guildScheduledEventCreate', interaction => {
+
+  console.log(interaction);
+
+})
+
 client.login(process.env.token);
