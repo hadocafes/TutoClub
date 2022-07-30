@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('latencia')
-		.setDescription('Consulta el tiempo de respuesta del bot y la API de Discord'),
+		.setName('reiniciar')
+		.setDescription('Reiniciar el bot y meter las últimas novedades'),
 
 	async execute(client, interaction) {
 
