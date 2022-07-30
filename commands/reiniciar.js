@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -7,7 +8,9 @@ module.exports = {
 
 	async execute(client, interaction) {
 
-        await interaction.react('✅').then(process.exit());
+		await interaction.reply({ content: 'Reiniciado correctamente, es posible que necesites esperar un poco para usar el bot.', ephemeral: true });
+		wait(2500);
+        process.exit();
 
 	}
 };
