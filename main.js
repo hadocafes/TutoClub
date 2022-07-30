@@ -10,7 +10,8 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.DirectMessages
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildScheduledEvents
   ]
 });
 
@@ -57,11 +58,5 @@ process.on('unhandledRejection', (err) => {
   });
   console.log(err);
 });
-
-client.on('guildScheduledEventCreate', interaction => {
-
-  console.log(interaction);
-
-})
 
 client.login(process.env.token);

@@ -10,6 +10,8 @@ module.exports = {
 
     if (interaction.channel.id === '1000691855136149554') {
 
+      console.log(interaction)
+
 
       if (interaction.content.startsWith('\\')) return; // Ignora los mensajes que tengan "\\"
 
