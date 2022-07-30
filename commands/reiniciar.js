@@ -7,8 +7,7 @@ module.exports = {
 
 	async execute(client, interaction) {
 
-        interaction.reply(`Reiniciando...`);
-        process.exit()
+        await interaction.react('✅').then(process.exit());
 
 	}
 };
