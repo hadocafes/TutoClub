@@ -1,6 +1,7 @@
 {
   "name": "tutoclub",
   "version": "14.3.5",
+  "canary": false,
   "description": "bot simple, privado y bonito",
   "main": "main.js",
   "repository": {
@@ -27,7 +28,7 @@
   "dependencies": {
     "@discordjs/builders": "^1.0.0",
     "@discordjs/rest": "^1.0.0",
-    "botsshelter": "^1.0.10",
+    "botsshelter": "^1.0.12",
     "discord.js": "^14.0.3",
     "espchatbotapi": "^2.0.18",
     "express": "^4.18.1"
