@@ -42,7 +42,7 @@ module.exports = {
 			const video_ = await Video.findOne({ x: '0' })
 
 			const dbVideo = video_.videoID
-			console.log(dbVideo + ' ' + lastVideoID)
+
 			if(dbVideo != lastVideoID) {
 				
 				await Video.findOneAndDelete({ x: '0' })

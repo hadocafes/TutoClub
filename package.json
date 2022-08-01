@@ -1,7 +1,7 @@
 {
   "name": "tutoclub",
   "version": "14.3.5",
-  "canary": true,
+  "canary": false,
   "description": "bot simple, privado y bonito",
   "main": "main.js",
   "repository": {
