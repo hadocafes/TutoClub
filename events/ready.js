@@ -52,7 +52,7 @@ module.exports = {
 				})
 				newDatabase.save()
 
-				client.channels.cache.get('985120656121299007').send({
+				client.channels.cache.get('569274865027252224').send({
 					embeds: [
 						new EmbedBuilder()
 							.setTitle(`${lastVideo.title}`)
