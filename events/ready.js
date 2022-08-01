@@ -62,11 +62,7 @@ module.exports = {
 								iconURL: 'https://cdn.discordapp.com/avatars/987457065800835183/eb30c6e039edf3aac8217a1522d759dd.png?size=1024',
 								url: 'https://www.youtube.com/tutodiscord'
 							})
-							.addFields({
-								name: 'Descripción',
-								value: `${lastVideo.description}`,
-								inline: false
-							})
+							.setDescription(lastVideo.description.slice(0, 150))
 							.setFooter({
 								text: 'TutoDiscord YouTube',
 								iconURL: 'https://www.bing.com/th?id=OIP.nbOuDweU9xZoI3gcqCEBWwHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2'
