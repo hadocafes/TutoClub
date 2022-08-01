@@ -53,6 +53,10 @@ module.exports = {
 				newDatabase.save()
 
 				client.channels.cache.get('569274865027252224').send({
+					allowedMentions: {
+						parse: ['everyone']
+					},
+					content: `> ¡Hay un nuevo vídeo en el canal!\n> ${lastVideo.title} - <https://www.youtube.com/watch?v=${lastVideoID}>\n@everyone`,
 					embeds: [
 						new EmbedBuilder()
 							.setTitle(`${lastVideo.title}`)
@@ -62,15 +66,14 @@ module.exports = {
 								iconURL: 'https://cdn.discordapp.com/avatars/987457065800835183/eb30c6e039edf3aac8217a1522d759dd.png?size=1024',
 								url: 'https://www.youtube.com/tutodiscord'
 							})
-							.addFields({
-								name: 'Descripción',
-								value: `${lastVideo.description}`,
-								inline: false
-							})
+							.setIcon('https://cdn.discordapp.com/avatars/987457065800835183/eb30c6e039edf3aac8217a1522d759dd.png?size=1024')
+							.setDescription(lastVideo.description.slice(0, 150))
+							.setThumbnail(lastVideo.videoThumbnails[lastVideo.videoThumbnails.length - 1].url))
 							.setFooter({
 								text: 'TutoDiscord YouTube',
 								iconURL: 'https://www.bing.com/th?id=OIP.nbOuDweU9xZoI3gcqCEBWwHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2'
 							})
+							.setTimestamp()
 							.setColor('Red')
 					]
 				})
