@@ -1,6 +1,6 @@
-let chatbot = require("espchatbotapi")
+let chatbot = require("espchatbotapi");
 require('dotenv').config();
-chatbot = new chatbot(process.env.chatbotToken, process.env.clientId)
+chatbot = new chatbot(process.env.chatbotToken, process.env.clientId);
 
 module.exports = {
   name: 'messageCreate',
@@ -8,7 +8,7 @@ module.exports = {
 
     if (interaction.author.bot) return;
 
-    if (interaction.channel.id === '1000691855136149554') {
+    if (interaction.channel.id == '1000691855136149554') {
 
       if (interaction.attachments) return;
 
@@ -16,15 +16,14 @@ module.exports = {
 
       chatbot.obtener(interaction.content).then(r => {
 
-        if (r === 'Desconozco lo que me ha dicho') return;
+        if (r == 'Desconozco lo que me ha dicho') return;
         return interaction.reply(r);
 
       }).catch(err => {
-        console.log(err);
+        console.error(err);
         return interaction.reply({ content: "👾 Ha surgido un problema con el soporte IA, contacta con <@680189998750105711> para resolverlo lo antes posible.", ephemeral: true });
       });
 
-    }
-
+    };
   },
 };

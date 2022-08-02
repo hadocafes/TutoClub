@@ -1,9 +1,9 @@
 const { ActivityType, EmbedBuilder } = require("discord.js");
 const { version } = require('../package.json');
-const { getChannelVideos } = require('yt-channel-info')
-const mongoose = require('mongoose')
-const Video = require('../db/video.js')
-require('dotenv').config()
+const { getChannelVideos } = require('yt-channel-info');
+const mongoose = require('mongoose');
+const Video = require('../db/video.js');
+require('dotenv').config();
 
 module.exports = {
 	name: 'ready',
@@ -68,9 +68,9 @@ module.exports = {
 							})
 							.setIcon('https://cdn.discordapp.com/avatars/987457065800835183/eb30c6e039edf3aac8217a1522d759dd.png?size=1024')
 							.setDescription(lastVideo.description.slice(0, 150))
-							.setThumbnail(lastVideo.videoThumbnails[lastVideo.videoThumbnails.length - 1].url))
+							.setThumbnail(lastVideo.videoThumbnails[lastVideo.videoThumbnails.length - 1].url)
 							.setFooter({
-								text: 'TutoDiscord YouTube',
+								text: 'TutoDiscord',
 								iconURL: 'https://www.bing.com/th?id=OIP.nbOuDweU9xZoI3gcqCEBWwHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2'
 							})
 							.setTimestamp()
