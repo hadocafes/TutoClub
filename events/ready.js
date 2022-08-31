@@ -28,7 +28,7 @@ module.exports = {
 		}).then(() => console.log('¡TutoClub conectado a MongoDB!'))
 
 		//youtube
-		setInterval(async () => {
+/*		setInterval(async () => {
 			const videos = await getChannelVideos({
 				channelId: process.env.ytChannelId,
 				channelIdType: 0
@@ -78,6 +78,6 @@ module.exports = {
 					]
 				})
 			}
-		}, 15000) //no tocar
+		}, 15000) //no tocar*/
 	}
 }
