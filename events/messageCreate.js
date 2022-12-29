@@ -1,4 +1,4 @@
-let chatbot = require("espchatbotapi");
+/*let chatbot = require("espchatbotapi");
 require('dotenv').config();
 chatbot = new chatbot(process.env.chatbotToken, process.env.clientId);
 
@@ -26,4 +26,4 @@ module.exports = {
 
     };
   },
-};
+};*/
