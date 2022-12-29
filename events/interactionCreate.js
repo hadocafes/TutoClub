@@ -51,7 +51,7 @@ module.exports = {
 				const finalInput = interaction.fields.getTextInputValue('final_carta');
 				const firmaInput = interaction.fields.getTextInputValue('firma_carta');
 
-				const canal = client.channels.cache.get('567924295280623643');
+				const canal = client.channels.cache.get('1056506704986116126'); // arisito del futuro, este es el canal de cartas (si no lo cambiaste)
 				
 				const colores = ["#EA6868", "#BD813B", "#4A4312", "#8E8F57", "#586D53"];
 				const randomIndex = Math.floor(Math.random() * (colores.length - 1) + 1);

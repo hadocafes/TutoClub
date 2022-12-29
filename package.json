@@ -1,6 +1,6 @@
 {
   "name": "tutoclub",
-  "version": "14.3.5",
+  "version": "14.3.8.5",
   "canary": false,
   "description": "bot simple, privado y bonito",
   "main": "main.js",
@@ -30,11 +30,6 @@
     "@discordjs/rest": "^1.0.0",
     "botsshelter": "^1.0.12",
     "discord.js": "^14.7.1",
-    "espchatbotapi": "^2.0.18",
-    "express": "^4.18.1",
-    "mongoose": "^6.5.0",
-    "sqlite": "^4.1.2",
-    "sqlite3": "^5.0.11",
-    "yt-channel-info": "^3.0.4"
+    "express": "^4.18.1"
   }
 }
