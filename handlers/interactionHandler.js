@@ -1,4 +1,4 @@
-const fs = require('node:fs')
+/*const fs = require('node:fs')
 
 module.exports = (client) => {
     fs.readdirSync('./interactions').forEach((directory) => {
@@ -16,4 +16,4 @@ module.exports = (client) => {
         }
       });
       console.log(`✔️  | Interactions loaded successfully`);
-}
+}*/

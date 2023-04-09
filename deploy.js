@@ -2,7 +2,7 @@ const { Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const fs = require('node:fs');
 const path = require('node:path');
-const { version, canary } = require('./package.json');
+const { version } = require('./package.json');
 require('dotenv').config();
 
 console.clear();
@@ -18,9 +18,9 @@ for (const file of commandFiles) {
 	commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: '10' }).setToken(canary ? process.env.canaryToken : process.env.token);
+const rest = new REST({ version: '10' }).setToken(process.env.token);
 
 rest
-	.put(Routes.applicationGuildCommands(canary ? process.env.canaryClientId : process.env.clientId, canary ? process.env.canaryGuildId : process.env.guildId), { body: commands })
+	.put(Routes.applicationGuildCommands(process.env.clientId, process.env.guildId), { body: commands })
 	.then(() => console.log(`(/) Los comandos se han registrado`))
 	.catch(console.error);
