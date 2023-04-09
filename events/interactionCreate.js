@@ -40,6 +40,8 @@ module.exports = {
 					.setDescription(interaction.isContextMenuCommand() ? `Ha usado \`${interaction.commandName}\` en <@${interaction.targetId}>` : `Ha usado </${interaction.commandName}:${interaction.commandId}>`)
 					.setColor('Blurple')
 			]});
+
+			return;
 		}
 
 		if (interaction.isModalSubmit()) {
@@ -79,6 +81,8 @@ module.exports = {
 				thread.send('Cuando el vídeo esté listo lo subiremos aquí.')
 				await interaction.reply({ content: '✅ Tu carta se ha enviado.\n\n¡Gracias por participar! ☺️', ephemeral: true });
 			}
+
+			return;
 
 		}
 

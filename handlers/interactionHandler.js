@@ -11,7 +11,7 @@ module.exports = (client) => {
           if (interact.id) {
             client.interactions.set(interact.id, interact);
           } else {
-            console.log('error al cargar las interacciones')
+            console.log('❌ | Error al cargar las interacciones')
           }
         }
       });
