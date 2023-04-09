@@ -21,7 +21,7 @@ client.interactions = new Collection();
 //HANDLERS
 require('./handlers/eventHandler.js')(client)
 require('./handlers/commandHandler.js')(client)
-require('./handlers/interactionHandler.js')(client)
+//require('./handlers/interactionHandler.js')(client)
 
 client.login(process.env.token);
 
