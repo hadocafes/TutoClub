@@ -1,91 +1,42 @@
-const { EmbedBuilder } = require('discord.js');
-require('dotenv').config();
+const { Events, EmbedBuilder, WebhookClient } = require('discord.js');
 
 module.exports = {
-	name: 'interactionCreate',
+	name: Events.InteractionCreate,
+	async execute(interaction, client) {
 
-	async execute (interaction, client) {
-		if(interaction.customId != undefined) {
-			const id = interaction.customId
-			const interaction_ = client.interactions.get(id)
-			if(interaction_) {
-				try {
-					interaction_.execute(client, interaction)
-				} catch (e) {
-					console.error(e)
-					interaction.reply({ content: 'Ha ocurrido un error al ejecutar la interacción.', ephemeral: true })
-				}
-			}
-		}
-		
-		if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
+if (interaction.isChatInputCommand()) {
 
-			const command = client.commands.get(interaction.commandName);
-			if (!command) return;
+    const command = interaction.client.commands.get(interaction.commandName);
 
-			try {
-				await command.execute(client, interaction);
-			} catch (error) {
-				console.log(error);
-				interaction.reply({ content: '⁉️ No pude hacer eso, contacta con <@1023960529217269781> para solucionar este problema cuanto antes.', ephemeral: true });
-			}
+    const locales = {
+        "en-US": "¡Ups! 😳\nSomething has gone wrong.",
+        "en-GB": "¡Ups! 😳\nSomething has gone wrong.",
+    }
 
-			// LOGS
-			client.channels.cache.get('1057973491057557585')
-				.send({ embeds: [ new EmbedBuilder() 
-					.setAuthor({
-						name: interaction.user.username,
-						iconURL: interaction.user.displayAvatarURL({ dynamic: true })
-					})
-					.setDescription(interaction.isContextMenuCommand() ? `Ha usado \`${interaction.commandName}\` en <@${interaction.targetId}>` : `Ha usado </${interaction.commandName}:${interaction.commandId}>`)
-					.setColor('Blurple')
-			]});
+    try {
+        await command.execute(interaction, client);
+    } catch (error) {
+        const webhookClient = new WebhookClient({ url: 'https://discord.com/api/webhooks/1094943851216646244/LKac7OhUVmsShZRYOeTc_9GAV6zfJ1LbzdI_SRF4LVJdeP1AarVd6z1-JDYSf5y59p8j' });
 
-			return;
-		}
+        const embed = new EmbedBuilder()
+            .setTitle('⚠️ Error')
+            .setColor('DarkRed')
+            .setDescription(`\`\`\`${error.stack}\`\`\``);
 
-		if (interaction.isModalSubmit()) {
+        webhookClient.send({
+            embeds: [embed]
+        });
 
-			if (interaction.customId === 'cartita') {
+        console.error(error);
+        if (interaction.replied || interaction.deferred) {
+            await interaction.followUp({ content: locales[interaction.locale] ?? '¡Ups! 😳\nAlgo ha fallado.', ephemeral: true });
+        } else {
+            await interaction.reply({ content: locales[interaction.locale] ?? '¡Ups! 😳\nAlgo ha fallado.', ephemeral: true })
+        }
+    }
+}
 
-				const inicioInput = interaction.fields.getTextInputValue('inicio_carta');
-				const cartaInput = interaction.fields.getTextInputValue('texto_carta');
-				const finalInput = interaction.fields.getTextInputValue('final_carta');
-				const firmaInput = interaction.fields.getTextInputValue('firma_carta');
+return;
 
-				const canal = client.channels.cache.get('1056506704986116126'); // arisito del futuro, este es el canal de cartas (si no lo cambiaste)
-				
-				const colores = ["#EA6868", "#BD813B", "#4A4312", "#8E8F57", "#586D53"];
-				const randomIndex = Math.floor(Math.random() * (colores.length - 1) + 1);
-        		const colorAleatorio = colores[randomIndex];
-
-				const embed = new EmbedBuilder().setColor(colorAleatorio)
-				let description = cartaInput;
-				const strings = inicioInput + cartaInput + finalInput + firmaInput;
-
-				if(strings.includes('http')) return interaction.reply({ content: '❌ Tu mensaje contiene enlaces y eso no se puede.', ephemeral: true });
-
-				if(inicioInput) embed.setTitle(`💌 ` + inicioInput)
-				if(finalInput) description = cartaInput + `\n\n${finalInput}`
-				if(firmaInput) embed.addFields({ name: 'Firmado', value: firmaInput})
-
-				embed.setDescription(description)
-				await canal.send({embeds: [embed]});
-				console.log(interaction.id)
-				const thread = await canal.threads.create({
-					name: 'Vídeo',
-					autoArchiveDuration: 60,
-					reason: 'En este hilo se subirá el vídeo',
-				});
-				await thread.join()
-				thread.send('Cuando el vídeo esté listo lo subiremos aquí.')
-				await interaction.reply({ content: '✅ Tu carta se ha enviado.\n\n¡Gracias por participar! ☺️', ephemeral: true });
-			}
-
-			return;
-
-		}
-
-	},
-
+    },
 };

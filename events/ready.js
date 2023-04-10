@@ -1,28 +1,11 @@
-const { ActivityType } = require("discord.js");
-const { version } = require('../package.json');
-//const mongoose = require('mongoose');
-require('dotenv').config();
+const { Events } = require('discord.js');
 
 module.exports = {
-	name: 'ready',
+	name: Events.ClientReady,
+	once: true,
+	execute(client) {
 
-	async execute (interaction, client) {
+		console.log('TutoClub\n');
 
-		client.user.setPresence({
-			activities: [{
-				name: 'TutoDiscord',
-				type: ActivityType.Watching
-			}],
-			status: 'idle'
-		});
-	
-		console.clear();
-		console.log(`TutoClub [Versión ${version}] \n\n✅ ¡BOT INICIADO!`);
-		
-		//base de datos
-		/*mongoose.connect(process.env.mongo_uri, {
-			useNewUrlParser: true,
-    		useUnifiedTopology: true
-		}).then(() => console.log('¡TutoClub conectado a MongoDB!'))*/
-	}
-}
+	},
+};

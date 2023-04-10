@@ -1,26 +1,41 @@
-const { Routes } = require('discord.js');
-const { REST } = require('@discordjs/rest');
+const { REST, Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { version } = require('./package.json');
-require('dotenv').config();
-
-console.clear();
-console.log(`TutoClub [Versión ${version}] \n`);
 
 const commands = [];
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
+const foldersPath = path.join(__dirname, 'commands');
+const commandFolders = fs.readdirSync(foldersPath);
 
-for (const file of commandFiles) {
-	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
-	commands.push(command.data.toJSON());
+for (const folder of commandFolders) {
+    
+    const commandsPath = path.join(foldersPath, folder);
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+    for (const file of commandFiles) {
+
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath);
+
+        commands.push(command.data.toJSON());
+
+    }
+
 }
 
-const rest = new REST({ version: '10' }).setToken(process.env.token);
+require('dotenv').config();
+const rest = new REST().setToken(process.env.token);
 
-rest
-	.put(Routes.applicationGuildCommands(process.env.clientId, process.env.guildId), { body: commands })
-	.then(() => console.log(`(/) Los comandos se han registrado`))
-	.catch(console.error);
+(async () => {
+	try {
+		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+
+		const data = await rest.put(
+			Routes.applicationGuildCommands(process.env.clientID, process.env.guildID),
+			{ body: commands },
+		);
+
+		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+	} catch (error) {
+		console.error(error);
+	}
+})();
